@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include head.html %}
+</head>
+
+<body>
+    {% if site.skip_to_content %}
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    {% endif %}
+
+    {% include header.html %}
+
+    <main id="main-content" class="main-content" role="main">
+        <div class="container">
+            {% if page.full_width %}
+            <article class="content-full-width">
+                {{ content }}
+            </article>
+            {% else %}
+            <article class="content-sidenotes">
+                {{ content }}
+            </article>
+            {% endif %}
+        </div>
+    </main>
+
+    {% include footer.html %}
+
+    <!-- Sidenote enhancement script -->
+    {% if site.sidenotes %}
+    <script src="{{ '/assets/js/sidenotes.js' | relative_url }}"></script>
+    {% endif %}
+</body>
+
+</html>

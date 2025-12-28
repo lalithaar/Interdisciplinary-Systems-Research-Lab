@@ -1,0 +1,449 @@
+/* Layout - Grid system and page structure */
+
+// Import base variables
+@use "base" as *;
+
+/* Main container */
+.container {
+    max-width: $max-container;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+
+    @media (max-width: $tablet) {
+        padding: 0 $spacing-md;
+    }
+
+    @media (max-width: $mobile) {
+        padding: 0 $spacing-sm;
+    }
+}
+
+/* Main content area */
+.main-content {
+    padding: $spacing-lg 0;
+    min-height: 70vh;
+
+    @media (max-width: $mobile) {
+        padding: $spacing-md 0;
+    }
+}
+
+/* Content width constraints */
+.content-sidenotes {
+    max-width: $content-width;
+    margin: 0;
+    position: relative;
+
+    @media (max-width: $mobile) {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+}
+
+.content-full-width {
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+/* Site header */
+.site-header {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid $border-light;
+    padding: $spacing-md 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.site-title {
+    font-family: $font-display;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.02em;
+
+    a {
+        color: $heading-black;
+        border: none;
+
+        &:hover {
+            color: $accent-teal;
+        }
+    }
+
+    @media (max-width: $mobile) {
+        font-size: 2rem;
+    }
+}
+
+.site-description {
+    font-family: $font-body;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: lighten($text-dark, 30%);
+    margin: 0 0 $spacing-sm 0;
+}
+
+/* Navigation */
+.site-nav {
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+
+    li {
+        margin: 0;
+    }
+
+    a {
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 0.5rem 0;
+        border: none;
+        color: $text-dark;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: $accent-teal;
+        }
+
+        &[aria-current="page"] {
+            color: $accent-teal;
+            border-bottom: 2px solid $accent-teal;
+        }
+    }
+}
+
+/* Site footer */
+.site-footer {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid $border-light;
+    padding: $spacing-md 0;
+    margin-top: $spacing-xl;
+    font-size: 0.9rem;
+    color: lighten($text-dark, 35%);
+
+    p {
+        margin: 0.25rem 0;
+    }
+
+    a {
+        color: inherit;
+
+        &:hover {
+            color: $accent-teal;
+        }
+    }
+}
+
+.footer-note {
+    font-style: italic;
+}
+
+/* Home page */
+.home {
+    max-width: 800px;
+}
+
+.page-title {
+    margin-bottom: $spacing-md;
+}
+
+.page-description {
+    font-size: 1.1rem;
+    color: lighten($text-dark, 20%);
+    margin-bottom: $spacing-md;
+}
+
+/* Recent sections */
+.recent-experiments,
+.recent-field-notes {
+    margin-top: $spacing-xl;
+}
+
+.recent-experiments h2,
+.recent-field-notes h2 {
+    font-size: 2rem;
+    margin-bottom: $spacing-md;
+    padding-bottom: $spacing-xs;
+    border-bottom: 2px solid $border-light;
+}
+
+/* List layouts */
+.experiment-list,
+.field-note-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.experiment-item,
+.field-note-item {
+    margin-bottom: $spacing-lg;
+    padding-bottom: $spacing-md;
+    border-bottom: 1px solid lighten($border-light, 3%);
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.experiment-item h3,
+.field-note-item h3 {
+    margin-top: 0;
+    font-size: 1.75rem;
+    margin-bottom: $spacing-xs;
+
+    a {
+        color: $heading-black;
+        border: none;
+
+        &:hover {
+            color: $accent-teal;
+        }
+    }
+}
+
+.experiment-item time,
+.field-note-item time {
+    display: block;
+    margin-bottom: $spacing-xs;
+}
+
+.excerpt {
+    margin-top: $spacing-sm;
+    color: lighten($text-dark, 15%);
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+/* Experiment and field note headers */
+.experiment-header,
+.field-note-header {
+    margin-bottom: $spacing-lg;
+    padding-bottom: $spacing-md;
+    border-bottom: 2px solid $border-light;
+}
+
+.experiment-title,
+.field-note-title {
+    margin-bottom: $spacing-sm;
+    line-height: 1.1;
+}
+
+.experiment-meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    margin-top: $spacing-sm;
+}
+
+.experiment-section {
+    margin-top: $spacing-lg;
+
+    h2 {
+        margin-top: $spacing-lg;
+    }
+}
+
+.experiment-footer,
+.field-note-footer {
+    margin-top: $spacing-xl;
+    padding-top: $spacing-md;
+    border-top: 1px solid $border-light;
+    color: lighten($text-dark, 25%);
+}
+
+/* Tags */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: $spacing-sm;
+}
+
+.tag {
+    display: inline-block;
+    background: transparent;
+    color: $accent-teal;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    border: 1.5px solid $accent-teal;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: $accent-teal;
+        color: white;
+        border-color: $accent-teal;
+    }
+}
+
+/* Status badges */
+.badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.badge-ongoing {
+    background-color: lighten(#E67E22, 30%);
+    color: darken(#E67E22, 20%);
+}
+
+.badge-completed {
+    background-color: lighten(#27AE60, 40%);
+    color: darken(#27AE60, 20%);
+}
+
+.badge-planned {
+    background-color: lighten(#3498DB, 35%);
+    color: darken(#3498DB, 20%);
+}
+
+.badge-failed {
+    background-color: lighten(#E74C3C, 30%);
+    color: darken(#E74C3C, 20%);
+}
+
+/* Tags page */
+.tags-page {
+    max-width: 900px;
+}
+
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: $spacing-md 0;
+}
+
+.tag-link {
+    background-color: lighten($code-bg, 2%);
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    border: none;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: $accent-teal;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.tag-section {
+    margin-top: $spacing-lg;
+
+    h2 {
+        color: $accent-teal;
+        border-bottom: 2px solid $accent-teal;
+        padding-bottom: $spacing-xs;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+        margin-top: $spacing-md;
+        color: lighten($text-dark, 25%);
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        padding: $spacing-xs 0;
+        border-bottom: 1px solid lighten($border-light, 3%);
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    time {
+        font-size: 0.85rem;
+        color: lighten($text-dark, 40%);
+    }
+}
+
+/* Dark mode layout adjustments */
+@media (prefers-color-scheme: dark) {
+    body.dark-mode {
+
+        .site-header,
+        .site-footer {
+            background-color: rgba(30, 30, 30, 0.85);
+            border-color: $border-dark;
+        }
+
+        .site-title a {
+            color: $heading-light;
+
+            &:hover {
+                color: $accent-teal-dark;
+            }
+        }
+
+        .site-description {
+            color: darken($text-light, 30%);
+        }
+
+        .site-nav a {
+            color: $text-light;
+
+            &:hover,
+            &[aria-current="page"] {
+                color: $accent-teal-dark;
+                border-bottom-color: $accent-teal-dark;
+            }
+        }
+
+        .experiment-item h3 a,
+        .field-note-item h3 a {
+            color: $heading-light;
+
+            &:hover {
+                color: $accent-teal-dark;
+            }
+        }
+
+        .tag {
+            color: $accent-teal-dark;
+            border-color: $accent-teal-dark;
+
+            &:hover {
+                background-color: $accent-teal-dark;
+                color: $bg-dark;
+            }
+        }
+
+        .tag-link {
+            background-color: lighten($code-bg-dark, 5%);
+
+            &:hover {
+                background-color: $accent-teal-dark;
+                color: $bg-dark;
+            }
+        }
+    }
+}

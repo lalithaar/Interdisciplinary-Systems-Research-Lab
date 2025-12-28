@@ -1,0 +1,219 @@
+/* Accessibility - WCAG 2.1 AA compliant styles */
+
+// Import base variables
+@use "base" as *;
+
+/* Visually hidden utility class */
+.visually-hidden,
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Focus indicators - visible and accessible */
+:focus-visible {
+    outline: 2px solid $accent-teal;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    body {
+        background-color: #FFFFFF;
+        color: #000000;
+        background-image: none;
+    }
+
+    a {
+        text-decoration: underline;
+        color: #0000EE;
+    }
+
+    .tag,
+    .badge {
+        border: 2px solid currentColor;
+    }
+
+    .sidenote {
+        border-left-width: 3px;
+    }
+}
+
+/* Enhanced keyboard navigation */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus,
+summary:focus,
+.sidenote-number:focus {
+    outline: 2px solid $accent-teal;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* Touch targets (minimum 44x44px on mobile) */
+@media (max-width: $mobile) {
+
+    a,
+    button,
+    .tag,
+    .badge,
+    .sidenote-number {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+    }
+
+    // Exception for inline text links
+    article a,
+    p a,
+    li a {
+        min-height: auto;
+        min-width: auto;
+        display: inline;
+        padding: 0;
+    }
+}
+
+/* ARIA support */
+[aria-hidden="true"] {
+    display: none;
+}
+
+/* Skip navigation improvements */
+.skip-link:focus {
+    position: fixed;
+    z-index: 10000;
+}
+
+/* Ensure interactive elements have proper states */
+button,
+input[type="submit"],
+input[type="button"],
+.tag,
+.badge {
+    cursor: pointer;
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+}
+
+/* Dark mode accessibility improvements */
+@media (prefers-color-scheme: dark) {
+    body.dark-mode {
+        :focus-visible {
+            outline-color: $accent-teal-dark;
+        }
+
+        a:focus,
+        button:focus,
+        .sidenote-number:focus {
+            outline-color: $accent-teal-dark;
+        }
+
+        .skip-link {
+            background: $accent-teal-dark;
+        }
+    }
+}
+
+/* Print accessibility */
+@media print {
+
+    *,
+    *::before,
+    *::after {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+    }
+
+    abbr[title]::after {
+        content: " (" attr(title) ")";
+    }
+
+    a[href^="#"]::after,
+    a[href^="javascript:"]::after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+
+    .site-header,
+    .site-footer,
+    .site-nav,
+    .skip-link {
+        display: none;
+    }
+}

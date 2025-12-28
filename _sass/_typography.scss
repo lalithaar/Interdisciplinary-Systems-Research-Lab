@@ -1,0 +1,218 @@
+/* Typography - Editorial magazine aesthetic */
+
+// Import modules
+@use "sass:color";
+@use "base" as *;
+
+/* Body text */
+body {
+    font-family: $font-body;
+    font-size: $font-size-base;
+    line-height: $line-height-body;
+    font-weight: 400;
+}
+
+/* Headings - Large, characterful display fonts */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $font-display;
+    font-weight: 600;
+    line-height: $line-height-heading;
+    color: $heading-black;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+}
+
+h1 {
+    font-size: 3.5rem; // Large, commanding
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-top: 0;
+
+    @media (max-width: $mobile) {
+        font-size: 2.5rem;
+    }
+}
+
+h2 {
+    font-size: 2.25rem;
+    margin-top: 3rem;
+
+    @media (max-width: $mobile) {
+        font-size: 1.75rem;
+    }
+}
+
+h3 {
+    font-size: 1.75rem;
+
+    @media (max-width: $mobile) {
+        font-size: 1.4rem;
+    }
+}
+
+h4 {
+    font-size: 1.4rem;
+}
+
+h5 {
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+h6 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+}
+
+/* Paragraph spacing */
+p {
+    margin-bottom: $spacing-sm;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+/* Emphasis and strong */
+em {
+    font-style: italic;
+}
+
+strong {
+    font-weight: 600;
+    color: $heading-black;
+}
+
+/* Small caps for dates and metadata */
+.small-caps,
+.experiment-meta,
+.field-note-timestamp,
+time {
+    font-variant: small-caps;
+    letter-spacing: 0.05em;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: lighten($text-dark, 35%);
+}
+
+/* Code and preformatted text */
+code,
+pre,
+kbd,
+samp {
+    font-family: $font-code;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: $code-bg;
+    padding: 0.2em 0.5em;
+    border-radius: 3px;
+    color: darken($accent-teal, 10%);
+    font-weight: 500;
+}
+
+pre {
+    background-color: $code-bg;
+    padding: $spacing-sm;
+    border-radius: 4px;
+    border: 1px solid darken($code-bg, 5%);
+    overflow-x: auto;
+    line-height: 1.5;
+    margin: $spacing-md 0;
+}
+
+pre code {
+    background-color: transparent;
+    padding: 0;
+    color: inherit;
+    border-radius: 0;
+}
+
+/* Lead paragraph (first paragraph styling) */
+.lead,
+article>p:first-of-type {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: lighten($text-dark, 10%);
+}
+
+/* Pull quotes */
+.pullquote {
+    font-family: $font-display;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-style: italic;
+    text-align: center;
+    margin: $spacing-md 0;
+    padding: $spacing-sm 0;
+    border-top: 1px solid $border-light;
+    border-bottom: 1px solid $border-light;
+    color: $accent-teal;
+}
+
+/* Drop cap */
+.drop-cap::first-letter {
+    float: left;
+    font-size: 4.5em;
+    line-height: 0.85;
+    margin: 0.08em 0.15em 0 0;
+    font-weight: 700;
+    font-family: $font-display;
+    color: $accent-teal;
+}
+
+/* Math rendering (KaTeX) */
+.katex {
+    font-size: 1.05em;
+}
+
+.katex-display {
+    margin: $spacing-md 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* Dark mode typography adjustments */
+@media (prefers-color-scheme: dark) {
+    body.dark-mode {
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: $heading-light;
+        }
+
+        strong {
+            color: $heading-light;
+        }
+
+        code {
+            background-color: $code-bg-dark;
+            color: lighten($accent-teal-dark, 10%);
+        }
+
+        pre {
+            background-color: $code-bg-dark;
+            border-color: lighten($code-bg-dark, 5%);
+        }
+
+        .small-caps,
+        .experiment-meta,
+        .field-note-timestamp,
+        time {
+            color: darken($text-light, 35%);
+        }
+    }
+}

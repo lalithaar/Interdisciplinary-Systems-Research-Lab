@@ -1,0 +1,59 @@
+title: Research Log
+description: Public research and experimentation journal
+author: Researcher Name
+url: https://example.com
+baseurl: ""
+
+# Theme settings
+sidenotes: true
+math_rendering: true
+font_headings: "Crimson Pro"
+font_body: "Lora"
+
+# Accessibility
+skip_to_content: true
+high_contrast_mode: false
+
+# Collections
+collections:
+  experiments:
+    output: true
+    permalink: /experiments/:title/
+  field_notes:
+    output: true
+    permalink: /notes/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "experiments"
+    values:
+      layout: "experiment"
+      full_width: false
+  - scope:
+      path: ""
+      type: "field_notes"
+    values:
+      layout: "field-note"
+      full_width: false
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - SKILL.md

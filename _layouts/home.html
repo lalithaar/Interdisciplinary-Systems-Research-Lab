@@ -1,0 +1,63 @@
+---
+layout: default
+---
+
+<div class="home">
+    <h1 class="page-title">{{ page.title | default: "Welcome to the Lab" }}</h1>
+
+    {{ content }}
+
+    <section class="recent-experiments">
+        <h2>Recent Experiments</h2>
+        {% if site.experiments.size > 0 %}
+        <ul class="experiment-list">
+            {% for experiment in site.experiments limit:5 %}
+            <li class="experiment-item">
+                <h3><a href="{{ experiment.url | relative_url }}">{{ experiment.title | escape }}</a></h3>
+                <time datetime="{{ experiment.date | date_to_xmlschema }}">{{ experiment.date | date: "%B %d, %Y"
+                    }}</time>
+                {% if experiment.status %}
+                <span class="badge badge-{{ experiment.status }}">{{ experiment.status }}</span>
+                {% endif %}
+                {% if experiment.excerpt %}
+                <p class="excerpt">{{ experiment.excerpt | strip_html | truncate: 200 }}</p>
+                {% endif %}
+                {% if experiment.tags %}
+                <div class="tags">
+                    {% for tag in experiment.tags %}
+                    <a href="{{ '/tags/' | relative_url }}#{{ tag | slugify }}" class="tag">{{ tag }}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No experiments yet. Start documenting your research!</p>
+        {% endif %}
+    </section>
+
+    <section class="recent-field-notes">
+        <h2>Recent Field Notes</h2>
+        {% if site.field_notes.size > 0 %}
+        <ul class="field-note-list">
+            {% for note in site.field_notes limit:5 %}
+            <li class="field-note-item">
+                <h3><a href="{{ note.url | relative_url }}">{{ note.title | escape }}</a></h3>
+                <time datetime="{{ note.date | date_to_xmlschema }}">{{ note.date | date: "%B %d, %Y at %I:%M %p"
+                    }}</time>
+                {% if note.tags %}
+                <div class="tags">
+                    {% for tag in note.tags %}
+                    <a href="{{ '/tags/' | relative_url }}#{{ tag | slugify }}" class="tag">{{ tag }}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No field notes yet. Capture your observations!</p>
+        {% endif %}
+    </section>
+</div>

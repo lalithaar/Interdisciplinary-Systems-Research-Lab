@@ -1,0 +1,23 @@
+<header class="site-header" role="banner">
+    <div class="container">
+        <h1 class="site-title">
+            <a href="{{ '/' | relative_url }}" rel="home">{{ site.title | escape }}</a>
+        </h1>
+        {% if site.description %}
+        <p class="site-description">{{ site.description | escape }}</p>
+        {% endif %}
+
+        <nav class="site-nav" role="navigation" aria-label="Main navigation">
+            <ul>
+                <li><a href="{{ '/' | relative_url }}" {% if page.url=='/' %}aria-current="page" {% endif %}>Home</a>
+                </li>
+                <li><a href="{{ '/experiments/' | relative_url }}" {% if page.url contains '/experiments/'
+                        %}aria-current="page" {% endif %}>Experiments</a></li>
+                <li><a href="{{ '/field-notes/' | relative_url }}" {% if page.url contains '/notes/'
+                        %}aria-current="page" {% endif %}>Field Notes</a></li>
+                <li><a href="{{ '/tags/' | relative_url }}" {% if page.url contains '/tags/' %}aria-current="page" {%
+                        endif %}>Tags</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>

@@ -1,0 +1,74 @@
+---
+layout: default
+---
+
+<article class="experiment">
+    <header class="experiment-header">
+        <h1 class="experiment-title">{{ page.title | escape }}</h1>
+
+        <div class="experiment-meta">
+            <time datetime="{{ page.date | date_to_xmlschema }}" class="experiment-date">
+                {{ page.date | date: "%B %d, %Y" }}
+            </time>
+            {% if page.status %}
+            <span class="badge badge-{{ page.status }}">{{ page.status }}</span>
+            {% endif %}
+        </div>
+
+        {% if page.tags %}
+        <div class="tags">
+            {% for tag in page.tags %}
+            <a href="{{ '/tags/' | relative_url }}#{{ tag | slugify }}" class="tag">{{ tag }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </header>
+
+    <div class="experiment-content">
+        {% if page.hypothesis %}
+        <section class="experiment-section">
+            <h2>Hypothesis</h2>
+            {{ page.hypothesis | markdownify }}
+        </section>
+        {% endif %}
+
+        {% if page.methodology %}
+        <section class="experiment-section">
+            <h2>Methodology</h2>
+            {{ page.methodology | markdownify }}
+        </section>
+        {% endif %}
+
+        <section class="experiment-section">
+            {{ content }}
+        </section>
+
+        {% if page.results %}
+        <section class="experiment-section">
+            <h2>Results</h2>
+            {{ page.results | markdownify }}
+        </section>
+        {% endif %}
+
+        {% if page.conclusions %}
+        <section class="experiment-section">
+            <h2>Conclusions</h2>
+            {{ page.conclusions | markdownify }}
+        </section>
+        {% endif %}
+    </div>
+
+    {% if page.related_notes %}
+    <footer class="experiment-footer">
+        <h3>Related Field Notes</h3>
+        <ul>
+            {% for note_id in page.related_notes %}
+            {% assign note = site.field_notes | where: "slug", note_id | first %}
+            {% if note %}
+            <li><a href="{{ note.url | relative_url }}">{{ note.title }}</a></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </footer>
+    {% endif %}
+</article>

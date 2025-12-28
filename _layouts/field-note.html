@@ -1,0 +1,39 @@
+---
+layout: default
+---
+
+<article class="field-note">
+    <header class="field-note-header">
+        <h1 class="field-note-title">{{ page.title | escape }}</h1>
+
+        <time datetime="{{ page.date | date_to_xmlschema }}" class="field-note-timestamp">
+            {{ page.date | date: "%B %d, %Y at %I:%M %p" }}
+        </time>
+
+        {% if page.tags %}
+        <div class="tags">
+            {% for tag in page.tags %}
+            <a href="{{ '/tags/' | relative_url }}#{{ tag | slugify }}" class="tag">{{ tag }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </header>
+
+    <div class="field-note-content">
+        {{ content }}
+    </div>
+
+    {% if page.related_experiment %}
+    <footer class="field-note-footer">
+        <p>
+            <strong>Related Experiment:</strong>
+            {% assign experiment = site.experiments | where: "slug", page.related_experiment | first %}
+            {% if experiment %}
+            <a href="{{ experiment.url | relative_url }}">{{ experiment.title }}</a>
+            {% else %}
+            {{ page.related_experiment }}
+            {% endif %}
+        </p>
+    </footer>
+    {% endif %}
+</article>

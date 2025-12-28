@@ -1,0 +1,29 @@
+---
+layout: default
+---
+
+<div class="field-notes-list">
+  <h1>Field Notes</h1>
+  
+  <p class="page-description">Quick observations and research notes captured in the moment.</p>
+
+  {% if site.field_notes.size > 0 %}
+    <ul class="field-note-list">
+      {% for note in site.field_notes %}
+        <li class="field-note-item">
+          <h3><a href="{{ note.url | relative_url }}">{{ note.title | escape }}</a></h3>
+          <time datetime="{{ note.date | date_to_xmlschema }}">{{ note.date | date: "%B %d, %Y at %I:%M %p" }}</time>
+          {% if note.tags %}
+            <div class="tags">
+              {% for tag in note.tags %}
+                <a href="{{ '/tags/' | relative_url }}#{{ tag | slugify }}" class="tag">{{ tag }}</a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No field notes yet. Start capturing your observations!</p>
+  {% endif %}
+</div>

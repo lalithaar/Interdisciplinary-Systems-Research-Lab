@@ -1,0 +1,33 @@
+min_contrast: AA
+pairs:
+  # Primary text on background
+  - foreground: "#2C2C2C"
+    background: "#F5F5F0"
+  
+  # Accent color on background (links)
+  - foreground: "#2C6E8F"
+    background: "#F5F5F0"
+  
+  # Link hover on background
+  - foreground: "#1E4D66"
+    background: "#F5F5F0"
+  
+  # Code text on code background
+  - foreground: "#c7254e"
+    background: "#F0F0EB"
+  
+  # Regular text on code background (sidenotes)
+  - foreground: "#555555"
+    background: "#F0F0EB"
+  
+  # Accent (white text) on accent background (badges, hover states)
+  - foreground: "#FFFFFF"
+    background: "#2C6E8F"
+  
+  # Dark mode: text on background
+  - foreground: "#E0E0E0"
+    background: "#1A1A1A"
+  
+  # Dark mode: accent on background
+  - foreground: "#4A9EC4"
+    background: "#1A1A1A"

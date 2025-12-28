@@ -1,0 +1,138 @@
+---
+layout: default
+---
+
+<div class="tags-page">
+    <h1>All Tags</h1>
+
+    <p>Browse research by topic:</p>
+
+    {% assign all_tags = "" | split: "" %}
+    {% for experiment in site.experiments %}
+    {% if experiment.tags %}
+    {% for tag in experiment.tags %}
+    {% unless all_tags contains tag %}
+    {% assign all_tags = all_tags | push: tag %}
+    {% endunless %}
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+
+    {% for note in site.field_notes %}
+    {% if note.tags %}
+    {% for tag in note.tags %}
+    {% unless all_tags contains tag %}
+    {% assign all_tags = all_tags | push: tag %}
+    {% endunless %}
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+
+    {% assign sorted_tags = all_tags | sort %}
+
+    <div class="tag-cloud">
+        {% for tag in sorted_tags %}
+        <a href="#{{ tag | slugify }}" class="tag-link">{{ tag }}</a>
+        {% endfor %}
+    </div>
+
+    <hr>
+
+    {% for tag in sorted_tags %}
+    <section id="{{ tag | slugify }}" class="tag-section">
+        <h2>{{ tag }}</h2>
+
+        {% assign tag_experiments = site.experiments | where_exp: "item", "item.tags contains tag" %}
+        {% assign tag_notes = site.field_notes | where_exp: "item", "item.tags contains tag" %}
+
+        {% if tag_experiments.size > 0 %}
+        <h3>Experiments</h3>
+        <ul>
+            {% for experiment in tag_experiments %}
+            <li>
+                <a href="{{ experiment.url | relative_url }}">{{ experiment.title }}</a>
+                <time datetime="{{ experiment.date | date_to_xmlschema }}">{{ experiment.date | date: "%b %d, %Y"
+                    }}</time>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if tag_notes.size > 0 %}
+        <h3>Field Notes</h3>
+        <ul>
+            {% for note in tag_notes %}
+            <li>
+                <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+                <time datetime="{{ note.date | date_to_xmlschema }}">{{ note.date | date: "%b %d, %Y" }}</time>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </section>
+    {% endfor %}
+</div>
+
+<style>
+    .tags-page {
+        max-width: 800px;
+    }
+
+    .tag-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin: 2rem 0;
+    }
+
+    .tag-link {
+        background-color: var(--color-code-bg);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        font-size: 0.95rem;
+        border: none;
+        transition: all 0.2s ease;
+    }
+
+    .tag-link:hover {
+        background-color: var(--color-accent);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .tag-section {
+        margin-top: 3rem;
+    }
+
+    .tag-section h2 {
+        color: var(--color-accent);
+        border-bottom: 2px solid var(--color-accent);
+        padding-bottom: 0.5rem;
+    }
+
+    .tag-section h3 {
+        font-size: 1.2rem;
+        margin-top: 1.5rem;
+        color: #666;
+    }
+
+    .tag-section ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .tag-section li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .tag-section li:last-child {
+        border-bottom: none;
+    }
+
+    .tag-section time {
+        float: right;
+        font-size: 0.85rem;
+        color: #999;
+    }
+</style>
