@@ -1,8 +1,11 @@
 title: Research Logs
 description: Public research and experimentation journal by Lalitha A R
 author: Lalitha A R
-url: https://example.com
-baseurl: "www.lalithaar.github.io/Interdisciplinary-Systems-Research-Lab"
+# The full domain where your site is hosted
+url: "https://lalithaar.github.io"
+
+# The sub-path/repository name (starts with a slash, no trailing slash)
+baseurl: "/Interdisciplinary-Systems-Research-Lab"
 
 # Theme settings
 sidenotes: true
