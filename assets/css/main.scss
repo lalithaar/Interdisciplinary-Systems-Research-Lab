@@ -1,8 +1,792 @@
----
----
+// ============================================================================
+// VARIABLES - _base.scss
+// ============================================================================
 
-@use "base";
-@use "typography";
-@use "layout";
-@use "sidenotes";
-@use "accessibility";
+@use "sass:color";
+
+// Light mode (DEFAULT) - EXACT colors from reference
+$bg-cream: #FAF9F6;
+$text-dark: #2B2B2B;
+$heading-black: #0A0A0A;
+$accent-teal: #2C5F5F;
+$accent-rust: #A0522D;
+$border-light: #E0E0E0;
+$code-bg: #F0F0F0;
+$link-color: $accent-teal;
+
+// Dark mode
+$bg-dark: #252525;
+$text-light: #E8E6E3;
+$heading-light: #FFFFFF;
+$accent-teal-dark: #4A9494;
+$border-dark: #404040;
+$code-bg-dark: #2A2A2A;
+
+// Spacing scale
+$spacing-xs: 0.75rem;
+$spacing-sm: 1.5rem;
+$spacing-md: 3rem;
+$spacing-lg: 4rem;
+$spacing-xl: 6rem;
+
+// Typography
+$font-display: 'Crimson Pro', Georgia, serif;
+$font-body: 'Lora', Georgia, serif;
+$font-code: 'JetBrains Mono', 'Courier New', monospace;
+
+$font-size-base: 19px;
+$line-height-body: 1.75;
+$line-height-heading: 1.2;
+
+// Layout
+$max-width: 1400px;
+$content-width: 75%;
+$mobile-breakpoint: 768px;
+$tablet-breakpoint: 1024px;
+
+// ============================================================================
+// BASE & RESET
+// ============================================================================
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: $font-size-base;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: $bg-cream;
+  color: $text-dark;
+  font-family: $font-body;
+  line-height: $line-height-body;
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  
+  // Subtle grid background matching reference
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: -1px -1px;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+// ============================================================================
+// TYPOGRAPHY
+// ============================================================================
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $font-display;
+    font-weight: 700;
+    line-height: $line-height-heading;
+    color: $heading-black;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-top: 0;
+    
+    @media (max-width: $mobile-breakpoint) {
+        font-size: 2.5rem;
+    }
+}
+
+h2 {
+    font-size: 2.25rem;
+    margin-top: $spacing-md;
+    
+    @media (max-width: $mobile-breakpoint) {
+        font-size: 1.75rem;
+    }
+}
+
+h3 {
+    font-size: 1.75rem;
+    
+    @media (max-width: $mobile-breakpoint) {
+        font-size: 1.4rem;
+    }
+}
+
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.15rem; }
+h6 { 
+    font-size: 0.85rem; 
+    text-transform: uppercase; 
+    letter-spacing: 0.15em; 
+    font-weight: 600;
+    color: color.adjust($text-dark, $lightness: 30%);
+}
+
+p {
+    margin-bottom: $spacing-sm;
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+a {
+    color: $link-color;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    transition: color 0.2s ease;
+    
+    &:hover {
+        color: color.adjust($link-color, $lightness: -15%);
+    }
+}
+
+strong {
+    font-weight: 600;
+    color: $heading-black;
+}
+
+em {
+    font-style: italic;
+}
+
+code {
+    font-family: $font-code;
+    background-color: $code-bg;
+    padding: 0.2em 0.5em;
+    border-radius: 3px;
+    color: color.adjust($accent-teal, $lightness: -10%);
+    font-size: 0.9em;
+}
+
+pre {
+    font-family: $font-code;
+    background-color: $code-bg;
+    padding: $spacing-sm;
+    border-radius: 4px;
+    border: 1px solid color.adjust($code-bg, $lightness: -5%);
+    overflow-x: auto;
+    line-height: 1.5;
+    margin: $spacing-md 0;
+    
+    code {
+        background-color: transparent;
+        padding: 0;
+        color: inherit;
+    }
+}
+
+blockquote {
+    margin: $spacing-md 0;
+    padding-left: 2rem;
+    border-left: 3px solid $accent-teal;
+    font-style: italic;
+    color: color.adjust($text-dark, $lightness: 20%);
+    font-size: 1.05rem;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid $border-light;
+    margin: $spacing-md 0;
+}
+
+// ============================================================================
+// LAYOUT - Matching reference design
+// ============================================================================
+
+// Container with max-width and centering
+.container {
+    max-width: $max-width;
+    margin: 0 auto;
+    padding: 0 4rem;
+    
+    @media (max-width: $tablet-breakpoint) {
+        padding: 0 2rem;
+    }
+    
+    @media (max-width: $mobile-breakpoint) {
+        padding: 0 1.5rem;
+    }
+}
+
+// Header - REFERENCE STYLE: Simple, not sticky, clean border
+.site-header {
+    background-color: transparent;
+    border-bottom: 1px solid $border-light;
+    padding: 2rem 0;
+    
+    // NOT sticky - let it scroll naturally
+    position: relative;
+    top: auto;
+    z-index: 1;
+}
+
+.site-title {
+    font-family: $font-display;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.02em;
+    
+    a {
+        color: $heading-black;
+        border: none;
+        
+        &:hover {
+            color: $accent-teal;
+        }
+    }
+    
+    @media (max-width: $mobile-breakpoint) {
+        font-size: 2rem;
+    }
+}
+
+.site-description {
+    font-family: $font-body;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: color.adjust($text-dark, $lightness: 25%);
+    margin: 0 0 1.5rem 0;
+}
+
+// Navigation - REFERENCE STYLE: Uppercase, spaced, clean
+.site-nav {
+    margin-top: 1rem;
+    
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+    
+    li {
+        margin: 0;
+    }
+    
+    a {
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding-bottom: 0.25rem;
+        border: none;
+        color: $text-dark;
+        transition: color 0.2s ease, border-color 0.2s ease;
+        
+        &:hover {
+            color: $accent-teal;
+        }
+        
+        &[aria-current="page"] {
+            color: $accent-teal;
+            border-bottom: 2px solid $accent-teal;
+        }
+    }
+}
+
+// Main content area
+.main-content {
+    padding: $spacing-lg 0;
+    min-height: 70vh;
+    
+    @media (max-width: $mobile-breakpoint) {
+        padding: $spacing-md 0;
+    }
+}
+
+// Content with sidenotes - REFERENCE LAYOUT
+.content-sidenotes {
+    max-width: $content-width;
+    margin: 0;
+    position: relative;
+    
+    @media (max-width: $mobile-breakpoint) {
+        max-width: 100%;
+    }
+}
+
+// Full width content
+.content-full-width {
+    max-width: 85%;
+    margin: 0 auto;
+}
+
+// Footer
+.site-footer {
+    background-color: transparent;
+    border-top: 1px solid $border-light;
+    padding: $spacing-md 0;
+    margin-top: $spacing-xl;
+    font-size: 0.9rem;
+    color: color.adjust($text-dark, $lightness: 35%);
+    
+    p {
+        margin: 0.25rem 0;
+    }
+    
+    a {
+        color: inherit;
+        
+        &:hover {
+            color: $accent-teal;
+        }
+    }
+}
+
+// ============================================================================
+// EXPERIMENT/FIELD NOTE HEADERS - REFERENCE STYLE
+// ============================================================================
+
+.experiment-header,
+.field-note-header {
+    margin-bottom: $spacing-lg;
+    padding-bottom: $spacing-md;
+    border-bottom: 1px solid $border-light;
+}
+
+.experiment-title,
+.field-note-title {
+    margin-bottom: $spacing-sm;
+    line-height: 1.1;
+}
+
+// Metadata - REFERENCE STYLE: Small caps, spaced
+.experiment-meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    flex-wrap: wrap;
+    margin-top: $spacing-sm;
+}
+
+time {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: color.adjust($text-dark, $lightness: 40%);
+    font-weight: 500;
+}
+
+// Metadata items like "EXPERIMENTAL SERIES / 002"
+.experiment-number,
+.series-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: color.adjust($text-dark, $lightness: 40%);
+    font-weight: 500;
+}
+
+// Status on the right - REFERENCE STYLE
+.experiment-status {
+    margin-left: auto;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $accent-rust;
+    font-weight: 600;
+}
+
+// ============================================================================
+// TAGS & BADGES
+// ============================================================================
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: $spacing-sm;
+}
+
+.tag {
+    display: inline-block;
+    background: transparent;
+    color: $accent-teal;
+    padding: 0.35rem 0.9rem;
+    border-radius: 20px;
+    border: 1.5px solid $accent-teal;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: all 0.2s ease;
+    
+    &:hover {
+        background-color: $accent-teal;
+        color: white;
+    }
+}
+
+// Status badges - REFERENCE COLORS
+.badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.badge-ongoing {
+    background-color: #FFE5CC;
+    color: #8B4513;
+}
+
+.badge-completed {
+    background-color: #C8E6C9;
+    color: #1B5E20;
+}
+
+.badge-planned {
+    background-color: #BBDEFB;
+    color: #0D47A1;
+}
+
+// ============================================================================
+// SIDENOTES - TUFTE STYLE
+// ============================================================================
+
+// Counter setup
+article,
+.content-sidenotes {
+    counter-reset: sidenote-counter;
+}
+
+// Hide checkbox
+.margin-toggle {
+    display: none;
+}
+
+// Sidenote reference number
+.sidenote-number {
+    counter-increment: sidenote-counter;
+    cursor: pointer;
+    user-select: none;
+    
+    &::after {
+        content: counter(sidenote-counter);
+        font-size: 0.65rem;
+        font-weight: 600;
+        vertical-align: super;
+        color: $accent-teal;
+        margin-left: 0.1rem;
+    }
+}
+
+// Base sidenote styling
+.sidenote {
+    font-family: $font-body;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: color.adjust($text-dark, $lightness: 25%);
+    
+    &::before {
+        content: counter(sidenote-counter) ". ";
+        font-weight: 600;
+        color: $accent-teal;
+    }
+}
+
+// DESKTOP: Sidenotes in right margin
+@media (min-width: #{$mobile-breakpoint + 1px}) {
+    
+    .sidenote {
+        position: absolute;
+        left: calc(100% + 3rem);
+        width: 30%;
+        margin-top: -0.5rem;
+        padding-left: 1.5rem;
+        border-left: 1px solid color.adjust($border-light, $lightness: 3%);
+    }
+    
+    .margin-toggle + .sidenote {
+        display: block;
+    }
+}
+
+// MOBILE: Sidenotes inline
+@media (max-width: $mobile-breakpoint) {
+    
+    .sidenote {
+        display: none;
+        margin-top: 0.75rem;
+        margin-bottom: $spacing-sm;
+        padding: $spacing-sm;
+        background-color: color.adjust($code-bg, $lightness: 2%);
+        border-left: 3px solid $accent-teal;
+        border-radius: 4px;
+    }
+    
+    .margin-toggle:checked + .sidenote {
+        display: block;
+    }
+    
+    .sidenote-number {
+        &::after {
+            text-decoration: underline;
+            text-decoration-style: dotted;
+        }
+    }
+    
+    .margin-toggle {
+        display: inline;
+        opacity: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+}
+
+// Full width mode
+.content-full-width {
+    .sidenote {
+        display: block;
+        position: static;
+        width: 100%;
+        margin: $spacing-sm 0;
+        padding: $spacing-sm;
+        background-color: color.adjust($code-bg, $lightness: 2%);
+        border-left: 3px solid $accent-teal;
+        border-radius: 4px;
+    }
+}
+
+// ============================================================================
+// ACCESSIBILITY
+// ============================================================================
+
+.visually-hidden,
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+:focus-visible {
+    outline: 2px solid $accent-teal;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: $accent-teal;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    z-index: 1000;
+    
+    &:focus {
+        top: 1rem;
+        outline-color: white;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+// ============================================================================
+// DARK MODE
+// ============================================================================
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: $bg-dark;
+        color: $text-light;
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        background-size: 40px 40px;
+        
+        h1, h2, h3, h4, h5, h6 {
+            color: $heading-light;
+        }
+        
+        h6 {
+            color: color.adjust($text-light, $lightness: -30%);
+        }
+        
+        strong {
+            color: $heading-light;
+        }
+        
+        a {
+            color: $accent-teal-dark;
+            
+            &:hover {
+                color: color.adjust($accent-teal-dark, $lightness: 10%);
+            }
+        }
+        
+        code {
+            background-color: $code-bg-dark;
+            color: color.adjust($accent-teal-dark, $lightness: 10%);
+        }
+        
+        pre {
+            background-color: $code-bg-dark;
+            border-color: color.adjust($code-bg-dark, $lightness: 5%);
+        }
+        
+        blockquote {
+            border-left-color: $accent-teal-dark;
+            color: color.adjust($text-light, $lightness: -20%);
+        }
+        
+        hr,
+        .site-header,
+        .site-footer,
+        .experiment-header,
+        .field-note-header {
+            border-color: $border-dark;
+        }
+        
+        .site-title a {
+            color: $heading-light;
+            
+            &:hover {
+                color: $accent-teal-dark;
+            }
+        }
+        
+        .site-description {
+            color: color.adjust($text-light, $lightness: -25%);
+        }
+        
+        .site-nav a {
+            color: $text-light;
+            
+            &:hover,
+            &[aria-current="page"] {
+                color: $accent-teal-dark;
+                border-bottom-color: $accent-teal-dark;
+            }
+        }
+        
+        time,
+        .experiment-number,
+        .series-label {
+            color: color.adjust($text-light, $lightness: -40%);
+        }
+        
+        .tag {
+            color: $accent-teal-dark;
+            border-color: $accent-teal-dark;
+            
+            &:hover {
+                background-color: $accent-teal-dark;
+                color: $bg-dark;
+            }
+        }
+        
+        .sidenote-number::after {
+            color: $accent-teal-dark;
+        }
+        
+        .sidenote {
+            color: color.adjust($text-light, $lightness: -25%);
+            border-left-color: color.adjust($border-dark, $lightness: 10%);
+            
+            &::before {
+                color: $accent-teal-dark;
+            }
+        }
+        
+        @media (max-width: $mobile-breakpoint) {
+            .sidenote {
+                background-color: color.adjust($code-bg-dark, $lightness: 5%);
+                border-left-color: $accent-teal-dark;
+            }
+        }
+        
+        .content-full-width .sidenote {
+            background-color: color.adjust($code-bg-dark, $lightness: 5%);
+            border-left-color: $accent-teal-dark;
+        }
+        
+        :focus-visible {
+            outline-color: $accent-teal-dark;
+        }
+    }
+}
+
+// ============================================================================
+// PRINT
+// ============================================================================
+@media print {
+    *,
+    *::before,
+    *::after {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    body {
+        background-image: none !important;
+    }
+    
+    .sidenote {
+        display: block;
+        position: static;
+        width: 100%;
+        margin: $spacing-sm 0;
+        padding: 0.5rem 1rem;
+        background-color: #f9f9f9;
+        border-left: 2px solid #000;
+        page-break-inside: avoid;
+    }
+    
+    .site-header,
+    .site-footer,
+    .site-nav,
+    .skip-link {
+        display: none;
+    }
+}

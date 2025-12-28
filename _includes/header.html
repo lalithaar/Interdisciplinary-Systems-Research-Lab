@@ -7,7 +7,7 @@
         <p class="site-description">{{ site.description | escape }}</p>
         {% endif %}
 
-        <nav class="site-nav" role="navigation" aria-label="Main navigation">
+        <nav class="site-nav mono" role="navigation" aria-label="Main navigation">
             <ul>
                 <li><a href="{{ '/' | relative_url }}" {% if page.url=='/' %}aria-current="page" {% endif %}>Home</a>
                 </li>

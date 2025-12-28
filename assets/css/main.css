@@ -1,0 +1,970 @@
+/* ============================================================================
+   CSS CUSTOM PROPERTIES (Variables)
+   ============================================================================ */
+
+:root {
+    /* Light mode colors */
+    --paper: #faf9f6;
+    --ink: #1c1c1c;
+    --ink-light: #666;
+    --ink-lighter: #999;
+    --accent: #2a5bb7;
+    --accent-hover: #1e4080;
+    --border: #e0e0e0;
+    --border-strong: #999;
+    --code-bg: #f5f5f5;
+    --grid: rgba(0, 0, 0, 0.03);
+    --sidenote-border: rgba(0, 0, 0, 0.1);
+    
+    /* Typography */
+    --font-display: 'Frances', 'Crimson Pro', Georgia, serif;
+    --font-body: 'Crimson Pro', Georgia, serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --paper: #1e1e1e;
+        --ink: #e8e6e3;
+        --ink-light: #b0b0b0;
+        --ink-lighter: #888;
+        --accent: #5a8dd6;
+        --accent-hover: #7ba8e3;
+        --border: #404040;
+        --border-strong: #666;
+        --code-bg: #2a2a2a;
+        --grid: rgba(255, 255, 255, 0.03);
+        --sidenote-border: rgba(255, 255, 255, 0.15);
+    }
+}
+
+/* ============================================================================
+   BASE & RESET
+   ============================================================================ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 18px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    min-height: 100vh;
+    text-rendering: optimizeLegibility;
+    
+    /* Grid background */
+    background-image: 
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: -1px -1px;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* ============================================================================
+   TYPOGRAPHY
+   ============================================================================ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-top: 3rem;
+}
+
+h3 {
+    font-size: 1.875rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: var(--ink-lighter);
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.5rem; }
+}
+
+p {
+    margin-bottom: 1.5rem;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--accent-hover);
+}
+
+strong {
+    font-weight: 600;
+    color: var(--ink);
+}
+
+em {
+    font-style: italic;
+}
+
+code {
+    font-family: var(--font-mono);
+    background-color: var(--code-bg);
+    padding: 0.2em 0.5em;
+    border-radius: 3px;
+    color: var(--accent);
+    font-size: 0.9em;
+}
+
+pre {
+    font-family: var(--font-mono);
+    background-color: var(--code-bg);
+    padding: 1.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    overflow-x: auto;
+    line-height: 1.5;
+    margin: 2rem 0;
+}
+
+pre code {
+    background-color: transparent;
+    padding: 0;
+    color: inherit;
+}
+
+blockquote {
+    margin: 2rem 0;
+    padding-left: 2rem;
+    border-left: 3px solid var(--accent);
+    font-style: italic;
+    color: var(--ink-light);
+    font-size: 1.1rem;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 3rem 0;
+}
+
+/* ============================================================================
+   LAYOUT
+   ============================================================================ */
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 4rem;
+}
+
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+}
+
+/* ============================================================================
+   HEADER
+   ============================================================================ */
+
+.site-header {
+    background-color: transparent;
+    padding: 2rem 0 1.5rem;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+}
+
+.site-title {
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.02em;
+}
+
+.site-title a {
+    color: var(--ink);
+    border: none;
+}
+
+.site-title a:hover {
+    color: var(--accent);
+}
+
+.site-description {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--ink-light);
+    margin: 0 0 1.5rem 0;
+}
+
+.site-nav {
+    margin-top: 1rem;
+}
+
+.site-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.site-nav li {
+    margin: 0;
+}
+
+.site-nav a {
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-bottom: 0.25rem;
+    border: none;
+    color: var(--ink);
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.site-nav a:hover {
+    color: var(--accent);
+}
+
+.site-nav a[aria-current="page"] {
+    color: var(--accent);
+    border-bottom: 2px solid var(--accent);
+}
+
+@media (max-width: 768px) {
+    .site-title {
+        font-size: 2rem;
+    }
+}
+
+/* ============================================================================
+   MAIN CONTENT
+   ============================================================================ */
+
+.main-content {
+    padding: 4rem 0;
+    min-height: 70vh;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 3rem 0;
+    }
+}
+
+.content-sidenotes {
+    max-width: 75%;
+    margin: 0;
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .content-sidenotes {
+        max-width: 100%;
+    }
+}
+
+.content-full-width {
+    max-width: 85%;
+    margin: 0 auto;
+}
+
+/* ============================================================================
+   FOOTER
+   ============================================================================ */
+
+.site-footer {
+    background-color: transparent;
+    border-top: 1px solid var(--border);
+    padding: 3rem 0;
+    margin-top: 6rem;
+    font-size: 0.9rem;
+    color: var(--ink-light);
+}
+
+.site-footer p {
+    margin: 0.25rem 0;
+}
+
+.site-footer a {
+    color: inherit;
+}
+
+.site-footer a:hover {
+    color: var(--accent);
+}
+
+/* ============================================================================
+   EXPERIMENT/FIELD NOTE HEADERS
+   ============================================================================ */
+
+.experiment-header,
+.field-note-header {
+    margin-bottom: 4rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--border-strong);
+}
+
+.experiment-title,
+.field-note-title {
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.experiment-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+time {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-lighter);
+    font-weight: 500;
+}
+
+.experiment-number,
+.series-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-lighter);
+    font-weight: 500;
+}
+
+.experiment-status {
+    margin-left: auto;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #d94324;
+    font-weight: 600;
+}
+
+/* ============================================================================
+   TAGS & BADGES
+   ============================================================================ */
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.tag {
+    display: inline-block;
+    background: transparent;
+    color: var(--accent);
+    padding: 0.35rem 0.9rem;
+    border-radius: 20px;
+    border: 1.5px solid var(--accent);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: all 0.2s ease;
+}
+
+.tag:hover {
+    background-color: var(--accent);
+    color: var(--paper);
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.badge-ongoing {
+    background-color: #ffe5cc;
+    color: #8b4513;
+}
+
+.badge-completed {
+    background-color: #c8e6c9;
+    color: #1b5e20;
+}
+
+.badge-planned {
+    background-color: #bbdefb;
+    color: #0d47a1;
+}
+
+/* ============================================================================
+   SIDENOTES - TUFTE STYLE (FIXED)
+   ============================================================================ */
+
+/* Counter setup */
+article,
+.content-sidenotes {
+    counter-reset: sidenote-counter;
+}
+
+/* Hide the checkbox */
+.margin-toggle {
+    display: none;
+}
+
+/* Sidenote reference number in text */
+.sidenote-number {
+    counter-increment: sidenote-counter;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+.sidenote-number::after {
+    content: counter(sidenote-counter);
+    font-size: 0.7rem;
+    font-weight: 600;
+    vertical-align: super;
+    color: var(--accent);
+    position: relative;
+    top: -0.3em;
+    margin-left: 0.1em;
+}
+
+/* Base sidenote styling - NO number prefix by default */
+.sidenote {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--ink-light);
+}
+
+/* DESKTOP LAYOUT (>768px): Sidenotes in right margin */
+@media (min-width: 769px) {
+    .sidenote {
+        position: absolute;
+        left: calc(100% + 2.5rem);
+        width: 28%;
+        margin-top: -0.5rem;
+        padding-left: 1.25rem;
+        border-left: 1px solid var(--sidenote-border);
+        display: block;
+    }
+    
+    /* Add number prefix ONLY in margin */
+    .sidenote::before {
+        content: counter(sidenote-counter) ". ";
+        font-weight: 600;
+        color: var(--accent);
+    }
+}
+
+/* MOBILE LAYOUT (≤768px): Sidenotes inline below paragraph */
+@media (max-width: 768px) {
+    /* Hide by default, show on checkbox toggle */
+    .sidenote {
+        display: none;
+        margin: 1rem 0 1.5rem 0;
+        padding: 1rem;
+        background-color: var(--code-bg);
+        border-left: 3px solid var(--accent);
+        border-radius: 4px;
+        position: relative;
+        clear: both;
+    }
+    
+    /* Add number prefix on mobile */
+    .sidenote::before {
+        content: counter(sidenote-counter) ". ";
+        font-weight: 600;
+        color: var(--accent);
+    }
+    
+    /* Show when checkbox is checked */
+    .margin-toggle:checked + .sidenote {
+        display: block;
+    }
+    
+    /* Make the sidenote number look clickable */
+    .sidenote-number::after {
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        cursor: pointer;
+    }
+    
+    .sidenote-number:hover::after {
+        background-color: var(--code-bg);
+        padding: 0.1em 0.3em;
+        border-radius: 3px;
+    }
+    
+    /* Enable checkbox functionality on mobile */
+    .margin-toggle {
+        display: inline;
+        opacity: 0;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+    }
+}
+
+/* Full-width mode: Sidenotes always inline */
+.content-full-width .sidenote {
+    display: block;
+    position: static;
+    width: 100%;
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background-color: var(--code-bg);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+}
+
+.content-full-width .sidenote::before {
+    content: counter(sidenote-counter) ". ";
+    font-weight: 600;
+    color: var(--accent);
+}
+
+/* ============================================================================
+   ACCESSIBILITY
+   ============================================================================ */
+
+.visually-hidden,
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    z-index: 1000;
+}
+
+.skip-link:focus {
+    top: 1rem;
+    outline-color: white;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ============================================================================
+   PRINT STYLES
+   ============================================================================ */
+
+@media print {
+    *,
+    *::before,
+    *::after {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    body {
+        background-image: none !important;
+    }
+    
+    .sidenote {
+        display: block;
+        position: static;
+        width: 100%;
+        margin: 1rem 0;
+        padding: 0.5rem 1rem;
+        background-color: #f9f9f9;
+        border-left: 2px solid #000;
+        page-break-inside: avoid;
+    }
+    
+    .sidenote::before {
+        content: counter(sidenote-counter) ". ";
+        font-weight: 600;
+        color: #000;
+    }
+    
+    .site-header,
+    .site-footer,
+    .site-nav,
+    .skip-link {
+        display: none;
+    }
+}
+
+/* ============================================================================
+   UTILITY CLASSES
+   ============================================================================ */
+
+.mono {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+}
+
+
+/* ============================================================================
+   TYPOGRAPHY ADJUSTMENTS FOR CRIMSON PRO
+   ============================================================================ */
+
+html {
+    /* Increased base from 18px to 20px to help Crimson Pro's small x-height */
+    font-size: 20px; 
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    /* Body text set to 1.2rem for legibility */
+    font-size: 1.2rem;
+    line-height: 1.6;
+    min-height: 100vh;
+    text-rendering: optimizeLegibility;
+    background-image: 
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: -1px -1px;
+}
+
+/* Ensure lists match body text size */
+ul, ol, p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Headings: Kept your defaults but capped them to prevent "extremely large" look */
+h1 { font-size: 3rem; line-height: 1.1; } /* Slightly reduced from 3.5rem */
+h2 { font-size: 2.2rem; }                /* Slightly reduced from 2.5rem */
+h3 { font-size: 1.8rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1.1rem; } /* Matches badge size for consistency */
+
+/* ============================================================================
+   TAGS, BADGES & META (Minimum 1.1rem)
+   ============================================================================ */
+
+.tag {
+    display: inline-block;
+    padding: 0.35rem 0.9rem;
+    border-radius: 20px;
+    border: 1.5px solid var(--accent);
+    font-size: 1.1rem; /* Fixed to requested minimum */
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 1.1rem; /* Fixed to requested minimum */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+time, .experiment-number, .series-label, .experiment-status {
+    font-size: 1.1rem; /* Brought up from 0.8rem */
+}
+
+/* ============================================================================
+   SIDENOTES & FOOTER
+   ============================================================================ */
+
+.sidenote {
+    font-family: var(--font-body);
+    font-size: 1.1rem; /* Increased from 0.85rem */
+    line-height: 1.5;
+    color: var(--ink-light);
+}
+
+.site-nav a {
+    font-size: 1.1rem; /* Increased from 0.95rem */
+    text-transform: uppercase;
+}
+
+.site-footer {
+    font-size: 1.1rem; /* Increased from 0.9rem */
+}
+
+/* ============================================================================
+   CODE & MONO
+   ============================================================================ */
+
+code {
+    font-family: var(--font-mono);
+    font-size: 1rem; /* Mono fonts usually look bigger than Crimson, so 1rem is balanced */
+}
+
+.mono {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+}
+
+/* ============================================================================
+   REFINED TYPOGRAPHY (CRIMSON PRO BALANCED)
+   ============================================================================ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em; /* Reduced negative spacing for better look */
+}
+
+/* H1 is now only ~2x body size instead of 3.5x */
+h1 {
+    font-size: 2.2rem; 
+    margin-top: 0;
+}
+
+/* H2 is now a comfortable "sub-title" size */
+h2 {
+    font-size: 1.8rem;
+    margin-top: 2.5rem;
+}
+
+/* H3 - H5 stay very close to body size but use weight to stand out */
+h3 {
+    font-size: 1.5rem;
+}
+
+h4 {
+    font-size: 1.3rem;
+}
+
+h5 {
+    font-size: 1.2rem; /* Same as body, but bold */
+}
+
+h6 {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    color: var(--ink-lighter);
+}
+
+/* Fix for the Site Title (usually too big in the header) */
+.site-title {
+    font-size: 1.8rem !important; 
+    font-weight: 700;
+}
+
+.site-description {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+/* Mobile adjustments to keep headings compact */
+@media (max-width: 768px) {
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.3rem; }
+    .site-title { font-size: 1.5rem !important; }
+}
+
+/* Ensure the layout doesn't feel too gappy with smaller headings */
+.experiment-header,
+.field-note-header {
+    margin-bottom: 2.5rem; /* Reduced from 4rem */
+    padding-bottom: 1.5rem;
+}
+
+/* ============================================================================
+   EDITORIAL MONO BADGES & STATUS
+   ============================================================================ */
+
+/* Base style for all status, tags, and badges */
+.tag, 
+.badge, 
+.experiment-status, 
+.experiment-number, 
+time, 
+.series-label {
+    font-family: var(--font-mono);
+    font-size: 1.1rem; /* Keeping your legibility requirement */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 400; /* Mono looks better at regular weight for editorial style */
+}
+
+/* Tags: Clean, underlined or lightly bordered */
+.tags {
+    gap: 1rem;
+}
+
+.tag {
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    color: var(--ink-light);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+
+.tag::before {
+    content: "#";
+    color: var(--accent);
+    margin-right: 2px;
+}
+
+.tag:hover {
+    background: none;
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+/* Badges: Removing the "pill" look for a "technical bracket" look */
+.badge {
+    padding: 0.2rem 0;
+    border-radius: 0;
+    background-color: transparent !important; /* Kill the bulky background */
+    position: relative;
+}
+
+/* Status markers: Using color-coded text indicators instead of boxes */
+.badge-ongoing::before { content: "[○] "; }
+.badge-completed::before { content: "[●] "; }
+.badge-planned::before { content: "[◌] "; }
+
+.badge-ongoing { color: #b45f06; }   /* Sophisticated burnt orange */
+.badge-completed { color: #2e7d32; } /* Deep editorial green */
+.badge-planned { color: var(--accent); }
+
+/* Status text in headers */
+.experiment-status {
+    margin-left: auto;
+    font-weight: 600;
+    /* Optional: add a slight slant or bracket for an archival feel */
+}
+
+.experiment-status::before {
+    content: "STATUS//";
+    font-weight: 400;
+    opacity: 0.6;
+    margin-right: 0.5rem;
+}
+
+/* Time and Meta updates */
+time, .experiment-number, .series-label {
+    color: var(--ink-lighter);
+    border-right: 1px solid var(--border);
+    padding-right: 1rem;
+}
+
+.series-label:last-child {
+    border-right: none;
+}
