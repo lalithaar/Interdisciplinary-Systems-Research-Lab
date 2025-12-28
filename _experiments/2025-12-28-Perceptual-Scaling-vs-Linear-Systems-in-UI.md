@@ -42,7 +42,7 @@ Where:
 I ran a comparison between two automated scaling methods on a standardized layout:
 
 1.  **Linear Scaling (Control):** A flat $1.1x$ multiplier.
-2.  **Psychophysical Scaling (Experimental):** My "CM-Spacing" (Comfort Mode Spacing)  algorithm that applies the formula above while respecting **Perceptual Ceilings** (points where further increases provide diminishing returns).
+2.  **Psychophysical Scaling (Experimental):** My "CM-Spacing" ([Comfort Mode](https://lalithaar.github.io/Interdisciplinary-Systems-Research-Lab/notes/Defining-Care-and-Comfort-in-HCI) Spacing {% include sidenote.html id="1" content="See my notes on how I define 'comfort' in my other notes for more info" %})  algorithm that applies the formula above while respecting **Perceptual Ceilings** (points where further increases provide diminishing returns).
 
 #### Data Observations
 
