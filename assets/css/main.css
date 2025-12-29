@@ -968,3 +968,7 @@ time, .experiment-number, .series-label {
 .series-label:last-child {
     border-right: none;
 }
+
+li,ul {
+    padding-left: 1rem;
+}
