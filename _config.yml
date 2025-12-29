@@ -60,3 +60,7 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - SKILL.md
+
+
+plugins:
+  - jekyll-sitemap
