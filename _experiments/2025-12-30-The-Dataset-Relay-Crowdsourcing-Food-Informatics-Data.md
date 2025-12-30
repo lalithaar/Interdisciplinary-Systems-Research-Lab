@@ -30,8 +30,12 @@ Judging evaluates final submissions holistically—strategy transparency and dat
 ### Why This Might Work
 
 Teams learn real-world data wrangling: scraping messy labels, standardizing ingredient names, designing quality checks. Plus CV signals: named co-author on research paper + published dataset. No endorsers, prize committees, or complex logistics—just run and publish the merged output.
+{% include sidenote.html id="4" content="[Engelhard, C. L., et al. (2023)](https://onlinelibrary.wiley.com/doi/10.1111/obr.13618). *Citizen science approaches to crowdsourcing food environment data: A scoping review of the literature*. Obesity Reviews." %} 
+Learns from citizen science: simple capture tools + explicit validation loops scale better than pure automation. 
 
-Learns from citizen science: simple capture tools + explicit validation loops scale better than pure automation. {% include sidenote.html id="4" content="[Engelhard, C. L., et al. (2023)](https://onlinelibrary.wiley.com/doi/10.1111/obr.13618). *Citizen science approaches to crowdsourcing food environment data: A scoping review of the literature*. Obesity Reviews." %} Forces provenance tracking per row, breaking opaque \"trust me\" datasets plaguing nutrition Kaggle sets. {% include sidenote.html id="5" content="[Batthula, V. (2025)](https://www.kaggle.com/datasets/batthulavinay/indian-food-nutrition). *Indian Food Nutritional Values Dataset*. " %}
+Forces provenance tracking per row, breaking opaque \"trust me\" datasets plaguing nutrition Kaggle sets.
+
+{% include sidenote.html id="5" content="[Batthula, V. (2025)](https://www.kaggle.com/datasets/batthulavinay/indian-food-nutrition). *Indian Food Nutritional Values Dataset*. " %}
 
 One team might discover a stupid-simple trick (barcode lookup first? photo-OCR with custom heuristics?) that unlocks what solo research misses.
 
